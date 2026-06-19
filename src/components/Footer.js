@@ -19,7 +19,7 @@ export default function Footer() {
         <div className="footer-content">
           <div className="footer-section">
             <img
-              src="https://via.placeholder.com/150x50/ffffff/1e3a8a?text=HMW+WebWorks"
+              src="/HM WEBWORKS.png"
               alt="HMW WebWorks"
               className="footer-logo"
             />
