@@ -1,5 +1,7 @@
 'use client';
 
+import BackgroundVideo from './BackgroundVideo';
+
 export default function Pricing() {
   const packages = [
     {
@@ -54,8 +56,9 @@ export default function Pricing() {
   };
 
   return (
-    <section id="pricing" className="pricing">
-      <div className="container">
+    <section id="pricing" className="pricing" style={{ position: 'relative', overflow: 'hidden' }}>
+      <BackgroundVideo hueRotate="200deg" opacity={0.15} />
+      <div className="container" style={{ position: 'relative', zIndex: 1 }}>
         <div className="section-header" data-aos="fade-up">
           <h2>Choose Your Package</h2>
           <p>Flexible pricing options for every business size</p>

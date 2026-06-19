@@ -3,6 +3,7 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { nextSlide, setSlide } from '@/redux/slices/testimonialsSlice';
+import BackgroundVideo from './BackgroundVideo';
 
 export default function Testimonials() {
   const dispatch = useDispatch();
@@ -40,8 +41,9 @@ export default function Testimonials() {
   }, [dispatch]);
 
   return (
-    <section className="testimonials">
-      <div className="container">
+    <section className="testimonials" style={{ position: 'relative', overflow: 'hidden' }}>
+      <BackgroundVideo hueRotate="15deg" opacity={0.13} />
+      <div className="container" style={{ position: 'relative', zIndex: 1 }}>
         <div className="section-header" data-aos="fade-up">
           <h2>What Our Clients Say</h2>
           <p>Real feedback from real clients</p>

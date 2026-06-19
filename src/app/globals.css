@@ -1280,13 +1280,21 @@ section {
 }
 
 /* Custom cursor */
-.cursor {
-    display: none;
-}
-
 @media (min-width: 992px) {
-    .cursor {
-        display: block;
+    body, 
+    a, 
+    button, 
+    select, 
+    input, 
+    textarea, 
+    .service-card, 
+    .portfolio-item, 
+    .filter-btn, 
+    .pricing-btn, 
+    .social-links a, 
+    .upload-action-btn, 
+    .file-select-trigger {
+        cursor: none !important;
     }
 }
 
@@ -1386,4 +1394,278 @@ section {
     .hero-content {
         padding: 0 15px;
     }
+}
+
+/* Premium Interaction Animations */
+.service-card:hover .service-icon {
+    transform: rotate(360deg) scale(1.1);
+}
+
+.stat-card:hover .stat-number {
+    text-shadow: 0 0 15px var(--electric-blue);
+    transform: scale(1.05);
+}
+
+.stat-card .stat-number, .stat-card .stat-icon {
+    transition: all 0.4s ease;
+}
+
+@keyframes pulse-border {
+    0%, 100% {
+        border-color: var(--electric-blue);
+        box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
+    }
+    50% {
+        border-color: var(--secondary-color);
+        box-shadow: 0 0 35px rgba(59, 130, 246, 0.5);
+    }
+}
+
+.pricing-card.featured {
+    animation: pulse-border 3s infinite ease-in-out;
+}
+
+/* Contact form inputs glowing borders */
+.contact-form .form-group input,
+.contact-form .form-group select,
+.contact-form .form-group textarea {
+    position: relative;
+    border-bottom: 2px solid var(--glass-border);
+}
+
+.contact-form .form-group input:focus,
+.contact-form .form-group select:focus,
+.contact-form .form-group textarea:focus {
+    border-color: var(--electric-blue);
+}
+
+/* Animated File Upload Widget */
+.file-upload-wrapper {
+    position: relative;
+    width: 100%;
+    height: 60px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    align-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Base states */
+.file-upload-wrapper.state-idle {
+    background: #ffffff;
+}
+
+.file-upload-wrapper.state-uploading {
+    background: #1e40af; /* Deep royal/dark blue */
+    border-color: #1e40af;
+}
+
+.file-upload-wrapper.state-completed {
+    background: #10b981; /* Vibrant emerald green */
+    border-color: #10b981;
+}
+
+/* Sub-views style */
+.file-upload-view {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 8px 0 20px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(15px) scale(0.98);
+}
+
+.file-upload-wrapper.state-idle .view-idle,
+.file-upload-wrapper.state-uploading .view-uploading,
+.file-upload-wrapper.state-completed .view-completed {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0) scale(1);
+}
+
+/* Idle state details */
+.view-idle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.file-select-trigger {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    flex-grow: 1;
+    height: 100%;
+    margin-right: 15px;
+    color: #475569;
+    user-select: none;
+}
+
+.file-select-trigger i {
+    color: #64748b;
+    font-size: 1.3rem;
+    transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.file-select-trigger:hover i {
+    color: var(--electric-blue);
+    transform: scale(1.15) rotate(-15deg);
+}
+
+.file-name-text {
+    font-size: 0.95rem;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 280px;
+    color: #334155;
+    font-family: 'Space Grotesk', sans-serif;
+}
+
+.file-name-text.placeholder {
+    color: #94a3b8;
+    font-weight: 400;
+}
+
+.upload-action-btn {
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+    color: #ffffff;
+    border: none;
+    padding: 0 32px;
+    height: 44px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Space Grotesk', sans-serif;
+}
+
+.upload-action-btn:hover:not(:disabled) {
+    background: linear-gradient(135deg, var(--secondary-color), var(--electric-blue));
+    transform: scale(1.02);
+    box-shadow: 0 4px 15px rgba(30, 64, 175, 0.4);
+}
+
+.upload-action-btn:active:not(:disabled) {
+    transform: scale(0.98);
+}
+
+.upload-action-btn:disabled {
+    background: #cbd5e1;
+    color: #94a3b8;
+    cursor: not-allowed;
+}
+
+/* Uploading State Layout */
+.view-uploading {
+    justify-content: center;
+    color: #ffffff;
+    font-size: 1.1rem;
+    font-weight: 600;
+    font-family: 'Space Grotesk', sans-serif;
+    letter-spacing: 0.5px;
+}
+
+.view-uploading span {
+    animation: pulse-text 1.5s infinite ease-in-out;
+}
+
+/* Progress indicator bar */
+.upload-progress-fill {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.6);
+    width: 0%;
+    animation: fill-progress 2s infinite linear;
+}
+
+@keyframes fill-progress {
+    0% {
+        width: 0%;
+    }
+    50% {
+        width: 70%;
+    }
+    100% {
+        width: 100%;
+    }
+}
+
+@keyframes pulse-text {
+    0%, 100% {
+        opacity: 0.8;
+        transform: scale(0.98);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.02);
+    }
+}
+
+/* Completed State Layout */
+.view-completed {
+    justify-content: center;
+    color: #ffffff;
+    font-size: 1.1rem;
+    font-weight: 600;
+    font-family: 'Space Grotesk', sans-serif;
+}
+
+.completed-check {
+    margin-right: 10px;
+    font-size: 1.2rem;
+    animation: pop-check 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes pop-check {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Clear attachment button */
+.btn-clear-attachment {
+    position: absolute;
+    right: 15px;
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 1.3rem;
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.btn-clear-attachment:hover {
+    background: rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+    transform: rotate(90deg);
 }

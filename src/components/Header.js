@@ -77,8 +77,15 @@ export default function Header() {
   return (
     <nav className="navbar" id="navbar">
       <div className="nav-container">
-        <div className="nav-logo">
-          <Image src="/HM WEBWORKS.png" alt="HMW WebWorks" width={150} height={40} priority />
+        <div className="nav-logo" style={{ display: 'flex', alignItems: 'center' }}>
+          <Image
+            src="/HM WEBWORKS.png"
+            alt="HMW WebWorks"
+            width={150}
+            height={40}
+            style={{ width: 'auto', height: '40px', objectFit: 'contain' }}
+            priority
+          />
         </div>
         <ul className={`nav-menu ${mobileMenuOpen ? 'active' : ''}`}>
           {navLinks.map((link) => (

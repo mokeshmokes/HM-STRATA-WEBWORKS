@@ -1,5 +1,7 @@
 'use client';
 
+import BackgroundVideo from './BackgroundVideo';
+
 export default function Services() {
   const services = [
     {
@@ -35,8 +37,9 @@ export default function Services() {
   ];
 
   return (
-    <section id="services" className="services">
-      <div className="container">
+    <section id="services" className="services" style={{ position: 'relative', overflow: 'hidden' }}>
+      <BackgroundVideo hueRotate="190deg" opacity={0.15} />
+      <div className="container" style={{ position: 'relative', zIndex: 1 }}>
         <div className="section-header" data-aos="fade-up">
           <h2>Our Services</h2>
           <p>We offer comprehensive digital solutions to elevate your business</p>
@@ -48,6 +51,9 @@ export default function Services() {
               className="service-card"
               data-aos="fade-up"
               data-aos-delay={(index + 1) * 100}
+              style={{
+                transition: 'transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease, border-color 0.4s ease'
+              }}
             >
               <div className="service-icon">
                 <i className={`fas ${service.icon}`}></i>

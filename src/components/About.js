@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import BackgroundVideo from './BackgroundVideo';
 
 export default function About() {
   const values = [
@@ -22,8 +23,9 @@ export default function About() {
   ];
 
   return (
-    <section id="about" className="about">
-      <div className="container">
+    <section id="about" className="about" style={{ position: 'relative', overflow: 'hidden' }}>
+      <BackgroundVideo hueRotate="290deg" opacity={0.14} />
+      <div className="container" style={{ position: 'relative', zIndex: 1 }}>
         <div className="about-content">
           <div className="about-text" data-aos="fade-right">
             <h2>About HMW WebWorks</h2>

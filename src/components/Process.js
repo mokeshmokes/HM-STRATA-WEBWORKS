@@ -1,5 +1,7 @@
 'use client';
 
+import BackgroundVideo from './BackgroundVideo';
+
 export default function Process() {
   const steps = [
     {
@@ -41,8 +43,9 @@ export default function Process() {
   ];
 
   return (
-    <section className="process">
-      <div className="container">
+    <section className="process" style={{ position: 'relative', overflow: 'hidden' }}>
+      <BackgroundVideo hueRotate="80deg" opacity={0.14} />
+      <div className="container" style={{ position: 'relative', zIndex: 1 }}>
         <div className="section-header" data-aos="fade-up">
           <h2>Our Process</h2>
           <p>How we bring your vision to life</p>

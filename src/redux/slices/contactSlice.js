@@ -4,7 +4,9 @@ const initialState = {
   submissions: [],
   isSubmitting: false,
   submitSuccess: false,
-  error: null
+  error: null,
+  fileUploadState: 'idle', // 'idle' | 'uploading' | 'completed'
+  fileName: ''
 };
 
 const contactSlice = createSlice({
@@ -29,9 +31,27 @@ const contactSlice = createSlice({
     resetSubmitStatus(state) {
       state.submitSuccess = false;
       state.error = null;
+    },
+    setFileName(state, action) {
+      state.fileName = action.payload;
+    },
+    setFileUploadState(state, action) {
+      state.fileUploadState = action.payload;
+    },
+    resetFileUpload(state) {
+      state.fileUploadState = 'idle';
+      state.fileName = '';
     }
   }
 });
 
-export const { submitFormStart, submitFormSuccess, submitFormError, resetSubmitStatus } = contactSlice.actions;
+export const {
+  submitFormStart,
+  submitFormSuccess,
+  submitFormError,
+  resetSubmitStatus,
+  setFileName,
+  setFileUploadState,
+  resetFileUpload
+} = contactSlice.actions;
 export default contactSlice.reducer;

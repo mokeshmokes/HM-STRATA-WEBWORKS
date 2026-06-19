@@ -2,6 +2,7 @@
 
 import { useSelector, useDispatch } from 'react-redux';
 import { setActiveFilter } from '@/redux/slices/portfolioSlice';
+import BackgroundVideo from './BackgroundVideo';
 
 export default function Portfolio() {
   const dispatch = useDispatch();
@@ -46,8 +47,9 @@ export default function Portfolio() {
   );
 
   return (
-    <section id="portfolio" className="portfolio">
-      <div className="container">
+    <section id="portfolio" className="portfolio" style={{ position: 'relative', overflow: 'hidden' }}>
+      <BackgroundVideo hueRotate="260deg" opacity={0.14} />
+      <div className="container" style={{ position: 'relative', zIndex: 1 }}>
         <div className="section-header" data-aos="fade-up">
           <h2>Our Portfolio</h2>
           <p>Explore our latest projects and success stories</p>
@@ -72,7 +74,7 @@ export default function Portfolio() {
               data-aos="zoom-in"
               data-aos-delay={index * 100}
               style={{
-                transition: 'opacity 0.3s ease, transform 0.3s ease'
+                transition: 'opacity 0.4s ease, transform 0.4s ease',
               }}
             >
               <div className="portfolio-image">

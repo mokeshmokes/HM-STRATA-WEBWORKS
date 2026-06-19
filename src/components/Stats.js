@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import BackgroundVideo from './BackgroundVideo';
 
 function StatCard({ icon, target, label }) {
   const [count, setCount] = useState(0);
@@ -69,8 +70,9 @@ export default function Stats() {
   ];
 
   return (
-    <section className="why-choose-us">
-      <div className="container">
+    <section className="why-choose-us" style={{ position: 'relative', overflow: 'hidden' }}>
+      <BackgroundVideo hueRotate="320deg" opacity={0.14} />
+      <div className="container" style={{ position: 'relative', zIndex: 1 }}>
         <div className="section-header" data-aos="fade-up">
           <h2>Why Choose HMW WebWorks</h2>
           <p>Proven results that speak for themselves</p>
