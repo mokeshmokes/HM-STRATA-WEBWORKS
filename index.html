@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HMW WebWorks - Professional Web Design & Development Agency</title>
+    <meta name="description"
+        content="Professional website design, development, branding & digital solutions. We build stunning websites that grow businesses.">
+    <meta name="keywords" content="web design, web development, SEO, digital marketing, branding, UI/UX design">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="loading">
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <div class="loader">
+            <div class="spinner"></div>
+            <h3>Loading HMW WebWorks</h3>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="https://via.placeholder.com/150x50/1e3a8a/ffffff?text=HMW+WebWorks" alt="HMW WebWorks">
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#services" class="nav-link">Services</a></li>
+                <li><a href="#portfolio" class="nav-link">Portfolio</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#pricing" class="nav-link">Pricing</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+                <li><button class="theme-toggle" id="theme-toggle"><i class="fas fa-moon"></i></button></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-background">
+            <div class="particles"></div>
+            <div class="floating-shapes">
+                <div class="shape shape-1"></div>
+                <div class="shape shape-2"></div>
+                <div class="shape shape-3"></div>
+                <div class="shape shape-4"></div>
+            </div>
+        </div>
+        <div class="hero-content">
+            <div class="hero-logo" data-aos="fade-down">
+                <img src="https://via.placeholder.com/200x70/1e3a8a/ffffff?text=HMW+WebWorks" alt="HMW WebWorks">
+            </div>
+            <h1 class="hero-title" data-aos="fade-up" data-aos-delay="200">
+                We Build Stunning Websites That <span class="gradient-text">Grow Businesses</span>
+            </h1>
+            <p class="hero-subtitle" data-aos="fade-up" data-aos-delay="400">
+                Professional Website Design, Development, Branding & Digital Solutions
+            </p>
+            <div class="hero-buttons" data-aos="fade-up" data-aos-delay="600">
+                <a href="#contact" class="btn btn-primary">Get a Free Quote</a>
+                <a href="#portfolio" class="btn btn-secondary">View Our Work</a>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <div class="scroll-line"></div>
+            <span>Scroll Down</span>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2>Our Services</h2>
+                <p>We offer comprehensive digital solutions to elevate your business</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="service-icon">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <h3>Website Design</h3>
+                    <p>Modern, responsive designs that captivate your audience and reflect your brand identity.</p>
+                </div>
+                <div class="service-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="service-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3>Website Development</h3>
+                    <p>Custom web applications built with cutting-edge technologies for optimal performance.</p>
+                </div>
+                <div class="service-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="service-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <h3>E-Commerce Solutions</h3>
+                    <p>Complete online stores with secure payment integration and inventory management.</p>
+                </div>
+                <div class="service-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="service-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3>SEO Optimization</h3>
+                    <p>Boost your search rankings and drive organic traffic with our proven SEO strategies.</p>
+                </div>
+                <div class="service-card" data-aos="fade-up" data-aos-delay="500">
+                    <div class="service-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>UI/UX Design</h3>
+                    <p>Intuitive user experiences that convert visitors into customers through thoughtful design.</p>
+                </div>
+                <div class="service-card" data-aos="fade-up" data-aos-delay="600">
+                    <div class="service-icon">
+                        <i class="fas fa-bullhorn"></i>
+                    </div>
+                    <h3>Digital Marketing</h3>
+                    <p>Strategic campaigns that amplify your online presence and drive business growth.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="portfolio">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2>Our Portfolio</h2>
+                <p>Explore our latest projects and success stories</p>
+            </div>
+            <div class="portfolio-filters" data-aos="fade-up">
+                <button class="filter-btn active" data-filter="all">All Projects</button>
+                <button class="filter-btn" data-filter="website">Websites</button>
+                <button class="filter-btn" data-filter="ecommerce">E-Commerce</button>
+                <button class="filter-btn" data-filter="branding">Branding</button>
+            </div>
+            <div class="portfolio-grid">
+                <div class="portfolio-item" data-category="website" data-aos="zoom-in">
+                    <div class="portfolio-image">
+                        <img src="https://via.placeholder.com/400x300/1e40af/ffffff?text=Project+1" alt="Project 1">
+                        <div class="portfolio-overlay">
+                            <div class="portfolio-content">
+                                <h3>Tech Startup Website</h3>
+                                <p>Modern SaaS platform design</p>
+                                <div class="portfolio-stats">
+                                    <span>+150% Traffic</span>
+                                    <span>+80% Conversions</span>
+                                </div>
+                                <a href="#" class="portfolio-link"><i class="fas fa-external-link-alt"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-item" data-category="ecommerce" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="portfolio-image">
+                        <img src="https://via.placeholder.com/400x300/3730a3/ffffff?text=Project+2" alt="Project 2">
+                        <div class="portfolio-overlay">
+                            <div class="portfolio-content">
+                                <h3>Fashion E-Commerce</h3>
+                                <p>Complete online store solution</p>
+                                <div class="portfolio-stats">
+                                    <span>+200% Sales</span>
+                                    <span>+65% Users</span>
+                                </div>
+                                <a href="#" class="portfolio-link"><i class="fas fa-external-link-alt"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-item" data-category="branding" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="portfolio-image">
+                        <img src="https://via.placeholder.com/400x300/1d4ed8/ffffff?text=Project+3" alt="Project 3">
+                        <div class="portfolio-overlay">
+                            <div class="portfolio-content">
+                                <h3>Restaurant Branding</h3>
+                                <p>Complete brand identity design</p>
+                                <div class="portfolio-stats">
+                                    <span>+300% Recognition</span>
+                                    <span>+120% Bookings</span>
+                                </div>
+                                <a href="#" class="portfolio-link"><i class="fas fa-external-link-alt"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us Section -->
+    <section class="why-choose-us">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2>Why Choose HMW WebWorks</h2>
+                <p>Proven results that speak for themselves</p>
+            </div>
+            <div class="stats-grid">
+                <div class="stat-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="stat-icon">
+                        <i class="fas fa-project-diagram"></i>
+                    </div>
+                    <div class="stat-number" data-count="100">0</div>
+                    <p>Projects Completed</p>
+                </div>
+                <div class="stat-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="stat-icon">
+                        <i class="fas fa-smile"></i>
+                    </div>
+                    <div class="stat-number" data-count="50">0</div>
+                    <p>Happy Clients</p>
+                </div>
+                <div class="stat-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="stat-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="stat-number" data-count="99">0</div>
+                    <p>Client Satisfaction</p>
+                </div>
+                <div class="stat-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="stat-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <div class="stat-number" data-count="24">0</div>
+                    <p>Hour Delivery</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2>What Our Clients Say</h2>
+                <p>Real feedback from real clients</p>
+            </div>
+            <div class="testimonials-slider" data-aos="fade-up">
+                <div class="testimonial-card active">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p>"HMW WebWorks transformed our online presence completely. Our website traffic increased by 250%
+                        and conversions doubled within 3 months."</p>
+                    <div class="testimonial-author">
+                        <img src="https://via.placeholder.com/60x60/1e40af/ffffff?text=JS" alt="John Smith">
+                        <div>
+                            <h4>John Smith</h4>
+                            <span>CEO, TechFlow Solutions</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p>"The team delivered exactly what we needed. Professional, fast, and the design exceeded our
+                        expectations. Highly recommended!"</p>
+                    <div class="testimonial-author">
+                        <img src="https://via.placeholder.com/60x60/3730a3/ffffff?text=MJ" alt="Maria Johnson">
+                        <div>
+                            <h4>Maria Johnson</h4>
+                            <span>Founder, Creative Studio</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p>"Outstanding work on our e-commerce platform. Sales increased by 180% and customer engagement
+                        improved significantly."</p>
+                    <div class="testimonial-author">
+                        <img src="https://via.placeholder.com/60x60/1d4ed8/ffffff?text=RB" alt="Robert Brown">
+                        <div>
+                            <h4>Robert Brown</h4>
+                            <span>Owner, Fashion Boutique</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-dots">
+                <span class="dot active" data-slide="0"></span>
+                <span class="dot" data-slide="1"></span>
+                <span class="dot" data-slide="2"></span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="process">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2>Our Process</h2>
+                <p>How we bring your vision to life</p>
+            </div>
+            <div class="process-steps">
+                <div class="process-step" data-aos="fade-right" data-aos-delay="100">
+                    <div class="step-number">01</div>
+                    <div class="step-content">
+                        <h3>Discovery</h3>
+                        <p>We understand your business, goals, and target audience to create the perfect strategy.</p>
+                    </div>
+                </div>
+                <div class="process-step" data-aos="fade-left" data-aos-delay="200">
+                    <div class="step-number">02</div>
+                    <div class="step-content">
+                        <h3>Design</h3>
+                        <p>Creating wireframes and mockups that align with your brand and user expectations.</p>
+                    </div>
+                </div>
+                <div class="process-step" data-aos="fade-right" data-aos-delay="300">
+                    <div class="step-number">03</div>
+                    <div class="step-content">
+                        <h3>Development</h3>
+                        <p>Building your website with clean code, optimized performance, and modern technologies.</p>
+                    </div>
+                </div>
+                <div class="process-step" data-aos="fade-left" data-aos-delay="400">
+                    <div class="step-number">04</div>
+                    <div class="step-content">
+                        <h3>Testing</h3>
+                        <p>Rigorous testing across all devices and browsers to ensure flawless functionality.</p>
+                    </div>
+                </div>
+                <div class="process-step" data-aos="fade-right" data-aos-delay="500">
+                    <div class="step-number">05</div>
+                    <div class="step-content">
+                        <h3>Launch</h3>
+                        <p>Smooth deployment and go-live process with full optimization and monitoring setup.</p>
+                    </div>
+                </div>
+                <div class="process-step" data-aos="fade-left" data-aos-delay="600">
+                    <div class="step-number">06</div>
+                    <div class="step-content">
+                        <h3>Support</h3>
+                        <p>Ongoing maintenance, updates, and support to keep your website running perfectly.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="pricing">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2>Choose Your Package</h2>
+                <p>Flexible pricing options for every business size</p>
+            </div>
+            <div class="pricing-grid">
+                <div class="pricing-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="pricing-header">
+                        <h3>Basic</h3>
+                        <div class="price">
+                            <span class="currency">$</span>
+                            <span class="amount">999</span>
+                            <span class="period">/project</span>
+                        </div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> 5 Page Website</li>
+                        <li><i class="fas fa-check"></i> Responsive Design</li>
+                        <li><i class="fas fa-check"></i> Contact Form</li>
+                        <li><i class="fas fa-check"></i> Basic SEO Setup</li>
+                        <li><i class="fas fa-check"></i> 30 Days Support</li>
+                    </ul>
+                    <a href="#contact" class="pricing-btn">Get Started</a>
+                </div>
+                <div class="pricing-card featured" data-aos="fade-up" data-aos-delay="200">
+                    <div class="pricing-badge">Most Popular</div>
+                    <div class="pricing-header">
+                        <h3>Professional</h3>
+                        <div class="price">
+                            <span class="currency">$</span>
+                            <span class="amount">2499</span>
+                            <span class="period">/project</span>
+                        </div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> 10 Page Website</li>
+                        <li><i class="fas fa-check"></i> Custom Design</li>
+                        <li><i class="fas fa-check"></i> CMS Integration</li>
+                        <li><i class="fas fa-check"></i> Advanced SEO</li>
+                        <li><i class="fas fa-check"></i> E-Commerce Ready</li>
+                        <li><i class="fas fa-check"></i> 90 Days Support</li>
+                    </ul>
+                    <a href="#contact" class="pricing-btn">Get Started</a>
+                </div>
+                <div class="pricing-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="pricing-header">
+                        <h3>Enterprise</h3>
+                        <div class="price">
+                            <span class="currency">$</span>
+                            <span class="amount">4999</span>
+                            <span class="period">/project</span>
+                        </div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> Unlimited Pages</li>
+                        <li><i class="fas fa-check"></i> Custom Development</li>
+                        <li><i class="fas fa-check"></i> Full E-Commerce</li>
+                        <li><i class="fas fa-check"></i> Advanced Analytics</li>
+                        <li><i class="fas fa-check"></i> Priority Support</li>
+                        <li><i class="fas fa-check"></i> 1 Year Maintenance</li>
+                    </ul>
+                    <a href="#contact" class="pricing-btn">Get Started</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text" data-aos="fade-right">
+                    <h2>About HMW WebWorks</h2>
+                    <p class="about-intro">We are a passionate team of designers and developers dedicated to creating
+                        digital experiences that drive business growth.</p>
+                    <p>Founded in 2020, HMW WebWorks has quickly become a trusted partner for businesses looking to
+                        establish a strong online presence. Our mission is to bridge the gap between beautiful design
+                        and powerful functionality.</p>
+                    <div class="about-values">
+                        <div class="value-item">
+                            <i class="fas fa-lightbulb"></i>
+                            <div>
+                                <h4>Innovation</h4>
+                                <p>We stay ahead of trends and use cutting-edge technologies</p>
+                            </div>
+                        </div>
+                        <div class="value-item">
+                            <i class="fas fa-handshake"></i>
+                            <div>
+                                <h4>Partnership</h4>
+                                <p>We work closely with clients as true partners in their success</p>
+                            </div>
+                        </div>
+                        <div class="value-item">
+                            <i class="fas fa-award"></i>
+                            <div>
+                                <h4>Excellence</h4>
+                                <p>We deliver exceptional quality in every project we undertake</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-image" data-aos="fade-left">
+                    <img src="https://via.placeholder.com/500x400/1e40af/ffffff?text=Our+Team" alt="HMW WebWorks Team">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2>Let's Start Your Project</h2>
+                <p>Ready to transform your online presence? Get in touch with us today</p>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info" data-aos="fade-right">
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h4>Phone</h4>
+                            <p>+1 (555) 123-4567</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h4>Email</h4>
+                            <p>hello@hmwwebworks.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h4>Location</h4>
+                            <p>123 Business Ave, Tech City, TC 12345</p>
+                        </div>
+                    </div>
+                    <div class="contact-item whatsapp">
+                        <i class="fab fa-whatsapp"></i>
+                        <div>
+                            <h4>WhatsApp</h4>
+                            <a href="https://wa.me/15551234567" target="_blank">Chat with us instantly</a>
+                        </div>
+                    </div>
+                </div>
+                <form class="contact-form" data-aos="fade-left">
+                    <div class="form-group">
+                        <input type="text" name="name" placeholder="Your Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" name="email" placeholder="Your Email" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" name="phone" placeholder="Your Phone">
+                    </div>
+                    <div class="form-group">
+                        <select name="service" required>
+                            <option value="">Select a Service</option>
+                            <option value="website-design">Website Design</option>
+                            <option value="website-development">Website Development</option>
+                            <option value="ecommerce">E-Commerce Solutions</option>
+                            <option value="seo">SEO Optimization</option>
+                            <option value="digital-marketing">Digital Marketing</option>
+                            <option value="branding">Branding & Photography</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <textarea name="message" placeholder="Tell us about your project" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <img src="https://via.placeholder.com/150x50/ffffff/1e3a8a?text=HMW+WebWorks" alt="HMW WebWorks"
+                        class="footer-logo">
+                    <p>Creating digital experiences that drive business growth and success.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="#services">Website Design</a></li>
+                        <li><a href="#services">Web Development</a></li>
+                        <li><a href="#services">E-Commerce</a></li>
+                        <li><a href="#services">SEO Optimization</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#portfolio">Portfolio</a></li>
+                        <li><a href="#pricing">Pricing</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <ul>
+                        <li><i class="fas fa-phone"></i> +1 (555) 123-4567</li>
+                        <li><i class="fas fa-envelope"></i> hello@hmwwebworks.com</li>
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Business Ave, Tech City</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 HMW WebWorks. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="back-to-top" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
