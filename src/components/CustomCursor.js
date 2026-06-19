@@ -1,45 +1,40 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 
 export default function CustomCursor() {
   const cursorRef = useRef(null);
-  const [isVisible, setIsVisible] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
-
-  const posRef = useRef({ x: -200, y: -200 });
 
   useEffect(() => {
     const isMobile = window.matchMedia('(max-width: 991px)').matches;
     if (isMobile) return;
 
-    // Hide the native OS cursor globally
+    const el = cursorRef.current;
+    if (!el) return;
+
+    // Show the cursor element
+    el.style.display = 'block';
+
+    // Hide the native OS cursor
     document.documentElement.style.cursor = 'none';
-    setIsVisible(true);
 
     const handleMouseMove = (e) => {
-      posRef.current.x = e.clientX;
-      posRef.current.y = e.clientY;
-
-      if (cursorRef.current) {
-        cursorRef.current.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
-      }
+      el.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
     };
 
     const handleMouseOver = (e) => {
       const target = e.target.closest(
         'a, button, .service-card, .portfolio-item, .filter-btn, .pricing-btn, .social-links a, .upload-action-btn, .file-select-trigger'
       );
-      setIsHovered(!!target);
+      if (target) {
+        el.classList.add('is-hovered');
+      } else {
+        el.classList.remove('is-hovered');
+      }
     };
 
-    const handleMouseLeave = () => {
-      if (cursorRef.current) cursorRef.current.style.opacity = '0';
-    };
-
-    const handleMouseEnter = () => {
-      if (cursorRef.current) cursorRef.current.style.opacity = '1';
-    };
+    const handleMouseLeave = () => { el.style.opacity = '0'; };
+    const handleMouseEnter = () => { el.style.opacity = '1'; };
 
     window.addEventListener('mousemove', handleMouseMove);
     window.addEventListener('mouseover', handleMouseOver);
@@ -55,22 +50,19 @@ export default function CustomCursor() {
     };
   }, []);
 
-  if (!isVisible) return null;
-
   return (
     <div
       ref={cursorRef}
-      className={`custom-cursor-img ${isHovered ? 'is-hovered' : ''}`}
+      className="custom-cursor-img"
       aria-hidden="true"
+      style={{ display: 'none' }}
     >
-      {/* Normal state: pointing hand */}
       <img
         src="/cursor-hand.png"
         alt=""
         className="cursor-img cursor-img-hand"
         draggable={false}
       />
-      {/* Hover state: Among Us crewmate */}
       <img
         src="/cursor-crewmate.png"
         alt=""
