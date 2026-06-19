@@ -1693,56 +1693,59 @@ section {
     transform: rotate(90deg);
 }
 
-/* Custom Cursor Base Styles */
-.custom-cursor-dot {
+/* ── Custom Cursor ─────────────────────────────────────── */
+
+/* Wrapper — positioned at raw mouse coords (top-left origin) */
+.custom-cursor-img {
     position: fixed;
     top: 0;
     left: 0;
-    margin-top: -4px;
-    margin-left: -4px;
-    width: 8px;
-    height: 8px;
-    background: var(--electric-blue);
-    border-radius: 50%;
+    width: 56px;
+    height: 56px;
     pointer-events: none;
     z-index: 10000;
-    mix-blend-mode: difference;
     will-change: transform;
-    scale: 1;
     opacity: 1;
-    transition: opacity 0.2s ease, scale 0.2s ease;
+    transition: opacity 0.2s ease;
+    /* hotspot at top-left of the image */
+    transform-origin: top left;
 }
 
-.custom-cursor-dot.cursor-hovered {
-    scale: 0.5;
-    opacity: 0.4;
-}
-
-.custom-cursor-ring {
-    position: fixed;
+/* Both images sit on top of each other */
+.cursor-img {
+    position: absolute;
     top: 0;
     left: 0;
-    margin-top: -15px;
-    margin-left: -15px;
-    width: 30px;
-    height: 30px;
-    border: 1px dashed rgba(0, 212, 255, 0.6);
-    background: transparent;
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 9999;
-    mix-blend-mode: difference;
-    transform-origin: center center;
-    will-change: transform;
-    scale: 1;
-    transition: scale 0.25s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.25s ease, background-color 0.25s ease, border-style 0.25s ease;
+    width: 56px;
+    height: auto;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+            user-select: none;
+    -webkit-user-drag: none;
+    transition: opacity 0.18s ease, transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.35));
 }
 
-.custom-cursor-ring.cursor-hovered {
-    scale: 1.5;
-    border: 2px solid var(--electric-blue);
-    background: rgba(0, 212, 255, 0.1);
-    border-style: solid;
+/* Default: hand visible, crewmate hidden */
+.cursor-img-hand {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+}
+
+.cursor-img-crewmate {
+    opacity: 0;
+    transform: scale(0.6) rotate(-15deg);
+}
+
+/* Hover: crewmate pops in, hand fades out */
+.custom-cursor-img.is-hovered .cursor-img-hand {
+    opacity: 0;
+    transform: scale(0.6) rotate(15deg);
+}
+
+.custom-cursor-img.is-hovered .cursor-img-crewmate {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
 }
 
 /*!***************************************************************************************************************************************************************************************************************************************************************************!*\
