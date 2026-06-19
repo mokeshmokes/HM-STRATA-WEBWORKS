@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   currentSlide: 0,
-  totalSlides: 3
+  totalSlides: 10
 };
 
 const testimonialsSlice = createSlice({

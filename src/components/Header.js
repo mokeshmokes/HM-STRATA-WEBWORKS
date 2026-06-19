@@ -80,9 +80,9 @@ export default function Header() {
           <Image
             src="/HM WEBWORKS.png"
             alt="HMW WebWorks"
-            width={220}
-            height={60}
-            style={{ width: 'auto', height: '60px', objectFit: 'contain' }}
+            width={260}
+            height={75}
+            style={{ width: 'auto', height: '75px', objectFit: 'contain' }}
             priority
           />
         </div>

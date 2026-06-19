@@ -13,6 +13,7 @@ import Testimonials from '@/components/Testimonials';
 import Process from '@/components/Process';
 import About from '@/components/About';
 import Contact from '@/components/Contact';
+import Feedback from '@/components/Feedback';
 import Footer from '@/components/Footer';
 import BackToTop from '@/components/BackToTop';
 import CustomCursor from '@/components/CustomCursor';
@@ -39,6 +40,7 @@ export default function Home() {
       <Process />
       <About />
       <Contact />
+      <Feedback />
       <Footer />
       <BackToTop />
     </>
