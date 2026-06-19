@@ -11,7 +11,6 @@ import Portfolio from '@/components/Portfolio';
 import Stats from '@/components/Stats';
 import Testimonials from '@/components/Testimonials';
 import Process from '@/components/Process';
-import Pricing from '@/components/Pricing';
 import About from '@/components/About';
 import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
@@ -38,7 +37,6 @@ export default function Home() {
       <Stats />
       <Testimonials />
       <Process />
-      <Pricing />
       <About />
       <Contact />
       <Footer />

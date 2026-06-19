@@ -70,7 +70,6 @@ export default function Header() {
     { label: 'Services', target: 'services' },
     { label: 'Portfolio', target: 'portfolio' },
     { label: 'About', target: 'about' },
-    { label: 'Pricing', target: 'pricing' },
     { label: 'Contact', target: 'contact' }
   ];
 
