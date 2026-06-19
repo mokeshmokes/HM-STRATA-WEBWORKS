@@ -5,7 +5,6 @@ import { useEffect, useRef, useState } from 'react';
 export default function CustomCursor() {
   const dotRef = useRef(null);
   const ringRef = useRef(null);
-  const [isHovered, setIsHovered] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
 
   // Position coordinates
@@ -31,9 +30,11 @@ export default function CustomCursor() {
     const handleMouseOver = (e) => {
       const target = e.target.closest('a, button, .service-card, .portfolio-item, .filter-btn, .pricing-btn, .social-links a, .upload-action-btn, .file-select-trigger');
       if (target) {
-        setIsHovered(true);
+        dotRef.current?.classList.add('cursor-hovered');
+        ringRef.current?.classList.add('cursor-hovered');
       } else {
-        setIsHovered(false);
+        dotRef.current?.classList.remove('cursor-hovered');
+        ringRef.current?.classList.remove('cursor-hovered');
       }
     };
 
@@ -93,47 +94,9 @@ export default function CustomCursor() {
   return (
     <>
       {/* Inner solid dot */}
-      <div
-        ref={dotRef}
-        style={{
-          position: 'fixed',
-          top: -4,
-          left: -4,
-          width: '8px',
-          height: '8px',
-          background: 'var(--electric-blue)',
-          borderRadius: '50%',
-          pointerEvents: 'none',
-          zIndex: 10000,
-          mixBlendMode: 'difference',
-          opacity: isHovered ? 0.4 : 1,
-          scale: isHovered ? '0.5' : '1',
-          transition: 'opacity 0.2s ease, scale 0.2s ease',
-          willChange: 'transform'
-        }}
-      />
+      <div ref={dotRef} className="custom-cursor-dot" />
       {/* Outer trailing ring */}
-      <div
-        ref={ringRef}
-        style={{
-          position: 'fixed',
-          top: -15,
-          left: -15,
-          width: '30px',
-          height: '30px',
-          border: isHovered ? '2px solid var(--electric-blue)' : '1px dashed rgba(0, 212, 255, 0.6)',
-          background: isHovered ? 'rgba(0, 212, 255, 0.1)' : 'transparent',
-          borderRadius: '50%',
-          pointerEvents: 'none',
-          zIndex: 9999,
-          mixBlendMode: 'difference',
-          transformOrigin: 'center center',
-          transform: 'scale(1)',
-          scale: isHovered ? '1.5' : '1',
-          transition: 'scale 0.25s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.25s ease, background-color 0.25s ease, border-style 0.25s ease',
-          willChange: 'transform, scale'
-        }}
-      />
+      <div ref={ringRef} className="custom-cursor-ring" />
     </>
   );
 }

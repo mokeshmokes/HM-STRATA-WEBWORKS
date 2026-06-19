@@ -1669,3 +1669,55 @@ section {
     color: #ffffff;
     transform: rotate(90deg);
 }
+
+/* Custom Cursor Base Styles */
+.custom-cursor-dot {
+    position: fixed;
+    top: 0;
+    left: 0;
+    margin-top: -4px;
+    margin-left: -4px;
+    width: 8px;
+    height: 8px;
+    background: var(--electric-blue);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 10000;
+    mix-blend-mode: difference;
+    will-change: transform;
+    scale: 1;
+    opacity: 1;
+    transition: opacity 0.2s ease, scale 0.2s ease;
+}
+
+.custom-cursor-dot.cursor-hovered {
+    scale: 0.5;
+    opacity: 0.4;
+}
+
+.custom-cursor-ring {
+    position: fixed;
+    top: 0;
+    left: 0;
+    margin-top: -15px;
+    margin-left: -15px;
+    width: 30px;
+    height: 30px;
+    border: 1px dashed rgba(0, 212, 255, 0.6);
+    background: transparent;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    mix-blend-mode: difference;
+    transform-origin: center center;
+    will-change: transform;
+    scale: 1;
+    transition: scale 0.25s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.25s ease, background-color 0.25s ease, border-style 0.25s ease;
+}
+
+.custom-cursor-ring.cursor-hovered {
+    scale: 1.5;
+    border: 2px solid var(--electric-blue);
+    background: rgba(0, 212, 255, 0.1);
+    border-style: solid;
+}
