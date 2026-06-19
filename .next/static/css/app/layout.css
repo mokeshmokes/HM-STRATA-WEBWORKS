@@ -1739,18 +1739,7 @@ section {
 /* Custom cursor */
 @media (min-width: 992px) {
     body, 
-    a, 
-    button, 
-    select, 
-    input, 
-    textarea, 
-    .service-card, 
-    .portfolio-item, 
-    .filter-btn, 
-    .pricing-btn, 
-    .social-links a, 
-    .upload-action-btn, 
-    .file-select-trigger {
+    body * {
         cursor: none !important;
     }
 }
@@ -1887,6 +1876,80 @@ section {
 
 .pricing-card.featured {
     animation: pulse-border 3s infinite ease-in-out;
+}
+
+/* Phone picker dropdown */
+.phone-picker-card { -webkit-user-select: none; -moz-user-select: none; user-select: none; }
+
+.phone-picker-dropdown {
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 0;
+    right: 0;
+    background: #0f172a;
+    border: 1px solid rgba(0, 212, 255, 0.3);
+    border-radius: 14px;
+    padding: 1rem;
+    z-index: 100;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(0,212,255,0.1);
+    animation: successPop 0.2s ease both;
+}
+
+.phone-picker-title {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--electric-blue);
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.phone-picker-option {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.85rem 1rem;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.06);
+    background: rgba(255,255,255,0.03);
+    text-decoration: none;
+    transition: all 0.2s ease;
+    margin-bottom: 0.5rem;
+}
+.phone-picker-option:last-child { margin-bottom: 0; }
+.phone-picker-option:hover {
+    background: rgba(0,212,255,0.08);
+    border-color: rgba(0,212,255,0.3);
+    transform: translateX(4px);
+}
+
+.phone-picker-option-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+}
+.phone-picker-option-label {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+.phone-picker-option-number {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+.phone-picker-call-icon {
+    color: var(--electric-blue);
+    font-size: 1rem;
+    transition: transform 0.2s ease;
+}
+.phone-picker-option:hover .phone-picker-call-icon {
+    transform: rotate(-10deg) scale(1.2);
 }
 
 /* ── Custom Cursor ─────────────────────────────────────── */

@@ -12,6 +12,56 @@ import {
 } from '@/redux/slices/contactSlice';
 import BackgroundVideo from './BackgroundVideo';
 
+// Phone numbers config — update these to your real numbers
+const PHONE_NUMBERS = [
+  { label: 'Sales & New Projects', number: '+91 8807414682', tel: 'tel:+918807414682' },
+  { label: 'Support & Enquiries',  number: '+91 9786379774', tel: 'tel:+919786379774' },
+];
+
+function PhonePickerCard() {
+  const [open, setOpen] = useState(false);
+  const ref = useRef(null);
+
+  // Close when clicking outside
+  useEffect(() => {
+    const handler = (e) => { if (ref.current && !ref.current.contains(e.target)) setOpen(false); };
+    document.addEventListener('mousedown', handler);
+    return () => document.removeEventListener('mousedown', handler);
+  }, []);
+
+  return (
+    <div ref={ref} className="contact-info-card phone-picker-card" style={{ '--card-color': '#00d4ff', position: 'relative', cursor: 'pointer' }} onClick={() => setOpen((v) => !v)}>
+      <div className="cic-icon">
+        <i className="fas fa-phone" />
+      </div>
+      <div className="cic-text">
+        <span className="cic-label">Call Us</span>
+        <strong className="cic-value">Tap to choose a number</strong>
+        <span className="cic-sub">Mon–Fri, 9am – 6pm</span>
+      </div>
+      <div className="cic-arrow" style={{ transform: open ? 'rotate(90deg)' : undefined, transition: 'transform 0.25s ease' }}>
+        <i className="fas fa-arrow-right" />
+      </div>
+
+      {/* Dropdown picker */}
+      {open && (
+        <div className="phone-picker-dropdown" onClick={(e) => e.stopPropagation()}>
+          <p className="phone-picker-title"><i className="fas fa-phone" /> Choose a number</p>
+          {PHONE_NUMBERS.map((item, i) => (
+            <a key={i} href={item.tel} className="phone-picker-option">
+              <div className="phone-picker-option-info">
+                <span className="phone-picker-option-label">{item.label}</span>
+                <span className="phone-picker-option-number">{item.number}</span>
+              </div>
+              <i className="fas fa-phone-alt phone-picker-call-icon" />
+            </a>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default function Contact() {
   const dispatch = useDispatch();
   const { isSubmitting, submitSuccess, fileUploadState, fileName } = useSelector((state) => state.contact);
@@ -100,25 +150,17 @@ export default function Contact() {
 
   const infoCards = [
     {
-      icon: 'fa-phone',
-      label: 'Call Us',
-      value: '+1 (555) 123-4567',
-      sub: 'Mon–Fri, 9am – 6pm',
-      color: '#00d4ff',
-      href: 'tel:+15551234567'
-    },
-    {
       icon: 'fa-envelope',
       label: 'Email Us',
       value: 'hello@hmwwebworks.com',
       sub: 'Reply within 24 hours',
       color: '#a855f7',
-      href: 'mailto:hello@hmwwebworks.com'
+      href: 'mailto:hmstratawebworks@gmail.com'
     },
     {
       icon: 'fa-map-marker-alt',
       label: 'Our Office',
-      value: 'Tech City, TC 12345',
+      value: 'Pallikaranai, Chennai',
       sub: '123 Business Avenue',
       color: '#f59e0b',
       href: '#'
@@ -129,7 +171,7 @@ export default function Contact() {
       value: 'Chat Instantly',
       sub: 'Usually replies in minutes',
       color: '#25d366',
-      href: 'https://wa.me/15551234567'
+      href: 'https://wa.me/8807414682'
     }
   ];
 
@@ -159,6 +201,9 @@ export default function Contact() {
           <div className="contact-v2-left" data-aos="fade-right" data-aos-delay="100">
 
             <div className="contact-info-cards">
+              {/* Phone with number picker */}
+              <PhonePickerCard />
+              {/* Other cards */}
               {infoCards.map((card, i) => (
                 <a
                   key={i}
