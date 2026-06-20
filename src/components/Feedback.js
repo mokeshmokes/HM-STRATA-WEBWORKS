@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
+import api from '@/lib/api';
 
 const STAR_LABELS = ['', 'Terrible', 'Poor', 'Average', 'Good', 'Amazing!'];
 
@@ -11,15 +12,16 @@ const TAGS = [
 ];
 
 export default function Feedback() {
-  const [rating, setRating]       = useState(0);
-  const [hovered, setHovered]     = useState(0);
-  const [tags, setTags]           = useState([]);
-  const [message, setMessage]     = useState('');
-  const [name, setName]           = useState('');
+  const [rating,    setRating]    = useState(0);
+  const [hovered,   setHovered]   = useState(0);
+  const [tags,      setTags]      = useState([]);
+  const [message,   setMessage]   = useState('');
+  const [name,      setName]      = useState('');
   const [submitted, setSubmitted] = useState(false);
-  const [loading, setLoading]     = useState(false);
-  const canvasRef                 = useRef(null);
-  const animRef                   = useRef(null);
+  const [loading,   setLoading]   = useState(false);
+  const [error,     setError]     = useState('');
+  const canvasRef = useRef(null);
+  const animRef   = useRef(null);
 
   /* ── animated star-field canvas ── */
   useEffect(() => {
@@ -35,43 +37,34 @@ export default function Feedback() {
     };
     window.addEventListener('resize', resize);
 
-    /* stars */
     const stars = Array.from({ length: 160 }, () => ({
-      x: Math.random() * W,
-      y: Math.random() * H,
+      x: Math.random() * W, y: Math.random() * H,
       r: Math.random() * 1.4 + 0.3,
       speed: Math.random() * 0.3 + 0.08,
       alpha: Math.random()
     }));
 
-    /* shooting stars */
     const shoots = [];
     const spawnShoot = () => {
       shoots.push({
-        x: Math.random() * W,
-        y: Math.random() * H * 0.5,
+        x: Math.random() * W, y: Math.random() * H * 0.5,
         len: 100 + Math.random() * 120,
         speed: 6 + Math.random() * 6,
-        alpha: 1,
-        angle: Math.PI / 5
+        alpha: 1, angle: Math.PI / 5
       });
     };
     const shootTimer = setInterval(spawnShoot, 2200);
 
-    /* floating orbs */
     const orbs = Array.from({ length: 6 }, () => ({
-      x: Math.random() * W,
-      y: Math.random() * H,
+      x: Math.random() * W, y: Math.random() * H,
       r: 60 + Math.random() * 100,
       dx: (Math.random() - 0.5) * 0.4,
       dy: (Math.random() - 0.5) * 0.4,
-      hue: Math.random() * 60 + 190   // cyan-purple range
+      hue: Math.random() * 60 + 190
     }));
 
     const draw = () => {
       ctx.clearRect(0, 0, W, H);
-
-      /* orbs */
       orbs.forEach(o => {
         o.x += o.dx; o.y += o.dy;
         if (o.x < -o.r) o.x = W + o.r;
@@ -81,46 +74,32 @@ export default function Feedback() {
         const g = ctx.createRadialGradient(o.x, o.y, 0, o.x, o.y, o.r);
         g.addColorStop(0, `hsla(${o.hue},100%,70%,0.10)`);
         g.addColorStop(1, 'transparent');
-        ctx.beginPath();
-        ctx.arc(o.x, o.y, o.r, 0, Math.PI * 2);
-        ctx.fillStyle = g;
-        ctx.fill();
+        ctx.beginPath(); ctx.arc(o.x, o.y, o.r, 0, Math.PI * 2);
+        ctx.fillStyle = g; ctx.fill();
       });
-
-      /* stars */
       stars.forEach(s => {
         s.y += s.speed;
         if (s.y > H) { s.y = 0; s.x = Math.random() * W; }
         s.alpha = 0.4 + 0.6 * Math.abs(Math.sin(Date.now() * 0.001 + s.x));
-        ctx.beginPath();
-        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(200,230,255,${s.alpha})`;
-        ctx.fill();
+        ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(200,230,255,${s.alpha})`; ctx.fill();
       });
-
-      /* shooting stars */
       for (let i = shoots.length - 1; i >= 0; i--) {
         const sh = shoots[i];
         ctx.save();
         ctx.globalAlpha = sh.alpha;
         ctx.strokeStyle = 'rgba(0,212,255,0.9)';
         ctx.lineWidth = 1.5;
-        ctx.shadowColor = '#00d4ff';
-        ctx.shadowBlur = 8;
+        ctx.shadowColor = '#00d4ff'; ctx.shadowBlur = 8;
         ctx.beginPath();
         ctx.moveTo(sh.x, sh.y);
         ctx.lineTo(sh.x - Math.cos(sh.angle) * sh.len, sh.y - Math.sin(sh.angle) * sh.len);
-        ctx.stroke();
-        ctx.restore();
-        sh.x += sh.speed;
-        sh.y += sh.speed * 0.4;
-        sh.alpha -= 0.018;
+        ctx.stroke(); ctx.restore();
+        sh.x += sh.speed; sh.y += sh.speed * 0.4; sh.alpha -= 0.018;
         if (sh.alpha <= 0) shoots.splice(i, 1);
       }
-
       animRef.current = requestAnimationFrame(draw);
     };
-
     draw();
     return () => {
       cancelAnimationFrame(animRef.current);
@@ -132,19 +111,39 @@ export default function Feedback() {
   const toggleTag = (t) =>
     setTags(prev => prev.includes(t) ? prev.filter(x => x !== t) : [...prev, t]);
 
-  const handleSubmit = (e) => {
+  /* ── Submit to real API ── */
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!rating) return;
     setLoading(true);
-    setTimeout(() => { setLoading(false); setSubmitted(true); }, 1800);
+    setError('');
+    try {
+      await api.post('/api/feedback', {
+        name:    name.trim() || 'Anonymous',
+        rating,
+        tags,
+        message: message.trim(),
+      });
+      setSubmitted(true);
+    } catch (err) {
+      setError(err.response?.data?.message || 'Something went wrong. Please try again.');
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const active = hovered || rating;  return (
-    <section id="feedback" className="feedback-section">
-      {/* Animated canvas background */}
-      <canvas ref={canvasRef} className="feedback-canvas" aria-hidden="true" />
+  const handleReset = () => {
+    setSubmitted(false);
+    setRating(0);
+    setTags([]);
+    setMessage('');
+    setName('');
+    setError('');
+  };
 
-      {/* Gradient overlay */}
+  return (
+    <section id="feedback" className="feedback-section">
+      <canvas ref={canvasRef} className="feedback-canvas" aria-hidden="true" />
       <div className="feedback-overlay" aria-hidden="true" />
 
       <div className="container feedback-container">
@@ -163,7 +162,7 @@ export default function Feedback() {
 
           <div className="feedback-stats-row">
             {[
-              { val: '98%', desc: 'Client Satisfaction' },
+              { val: '98%',  desc: 'Client Satisfaction' },
               { val: '4.9★', desc: 'Average Rating' },
               { val: '200+', desc: 'Happy Clients' }
             ].map((s, i) => (
@@ -174,7 +173,6 @@ export default function Feedback() {
             ))}
           </div>
 
-          {/* Floating quote card */}
           <div className="feedback-quote-card" data-aos="zoom-in" data-aos-delay="300">
             <i className="fas fa-quote-left feedback-quote-icon" />
             <p>"The attention to detail and responsiveness of the HMW team is unmatched. Truly a 5-star experience."</p>
@@ -198,10 +196,8 @@ export default function Feedback() {
                   <span className="feedback-success-emoji">🎉</span>
                 </div>
                 <h3>Thank You, {name || 'Friend'}!</h3>
-                <p>Your feedback has been recorded. We truly appreciate you taking the time.</p>
-                <button className="feedback-reset-btn" onClick={() => {
-                  setSubmitted(false); setRating(0); setTags([]); setMessage(''); setName('');
-                }}>
+                <p>Your feedback has been submitted and is pending review by our team.</p>
+                <button className="feedback-reset-btn" onClick={handleReset}>
                   Submit Another
                 </button>
               </div>
@@ -267,6 +263,13 @@ export default function Feedback() {
                     rows={3}
                   />
                 </div>
+
+                {/* API error */}
+                {error && (
+                  <p style={{ color: '#f87171', fontSize: '0.85rem', marginBottom: '0.75rem' }}>
+                    ⚠ {error}
+                  </p>
+                )}
 
                 <button
                   type="submit"

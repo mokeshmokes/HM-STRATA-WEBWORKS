@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { setActiveFilter } from '@/redux/slices/portfolioSlice';
+import { fetchPortfolio, setActiveFilter } from '@/redux/slices/portfolioSlice';
 
 const filters = [
   { label: 'All Projects', value: 'all',      icon: 'fa-th' },
@@ -11,72 +11,7 @@ const filters = [
   { label: 'Branding',     value: 'branding', icon: 'fa-paint-brush' },
 ];
 
-const projects = [
-  {
-    id: 1, category: 'website',
-    title: 'NovaPulse SaaS Platform',
-    desc: 'Full-stack dashboard & marketing site for a B2B analytics startup',
-    stats: ['+210% Traffic', '+95% Lead Gen'],
-    img: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80',
-    color: '#00d4ff', year: '2024'
-  },
-  {
-    id: 2, category: 'ecommerce',
-    title: 'Luxe Noir Fashion Store',
-    desc: 'High-end Shopify store with custom theme & AR try-on feature',
-    stats: ['+320% Sales', '+74% Return Users'],
-    img: 'https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?w=800&q=80',
-    color: '#a855f7', year: '2024'
-  },
-  {
-    id: 3, category: 'branding',
-    title: 'Ember & Oak Restaurant',
-    desc: 'Complete brand identity — logo, menu design, signage & website',
-    stats: ['+180% Bookings', '+400% Social Reach'],
-    img: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&q=80',
-    color: '#f59e0b', year: '2024'
-  },
-  {
-    id: 4, category: 'website',
-    title: 'ArchVision Studio',
-    desc: 'Luxury architecture firm portfolio with 3D project viewer',
-    stats: ['+260% Enquiries', '+88% Session Time'],
-    img: 'https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=800&q=80',
-    color: '#22c55e', year: '2023'
-  },
-  {
-    id: 5, category: 'ecommerce',
-    title: 'GreenLeaf Organics',
-    desc: 'Subscription-based organic grocery store with smart reorder system',
-    stats: ['+145% Subscriptions', '+60% Avg Order'],
-    img: 'https://images.unsplash.com/photo-1542838132-92c53300491e?w=800&q=80',
-    color: '#34d399', year: '2024'
-  },
-  {
-    id: 6, category: 'branding',
-    title: 'Vertex Fitness',
-    desc: 'Brand overhaul, app UI design & marketing collateral for gym chain',
-    stats: ['+500% Brand Recall', '+230% Memberships'],
-    img: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&q=80',
-    color: '#f43f5e', year: '2023'
-  },
-  {
-    id: 7, category: 'website',
-    title: 'Horizon Real Estate',
-    desc: 'Property listing platform with map integration & virtual tours',
-    stats: ['+190% Listing Views', '+112% Inquiries'],
-    img: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&q=80',
-    color: '#818cf8', year: '2024'
-  },
-  {
-    id: 8, category: 'ecommerce',
-    title: 'TechGear Pro',
-    desc: 'Multi-vendor electronics marketplace with real-time inventory sync',
-    stats: ['+280% Revenue', '+91% Checkout Rate'],
-    img: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=80',
-    color: '#fb923c', year: '2023'
-  },
-];
+const projects = [];
 
 /* Ambient canvas background */
 function PortfolioBg() {
@@ -232,8 +167,13 @@ function ProjectCard({ project, index }) {
 
 export default function Portfolio() {
   const dispatch     = useDispatch();
-  const activeFilter = useSelector((state) => state.portfolio.activeFilter);
+  const { projects, activeFilter, loading, error } = useSelector((state) => state.portfolio);
   const [animKey, setAnimKey] = useState(0);
+
+  // Fetch live portfolio on mount
+  useEffect(() => {
+    dispatch(fetchPortfolio());
+  }, [dispatch]);
 
   const handleFilter = (val) => {
     dispatch(setActiveFilter(val));
@@ -280,9 +220,28 @@ export default function Portfolio() {
         </div>
 
         {/* Grid */}
-        <div className="pf-grid" key={animKey}>
-          {filtered.map((p, i) => <ProjectCard key={p.id} project={p} index={i} />)}
-        </div>
+        {loading && (
+          <div style={{ textAlign: 'center', padding: '3rem', color: 'rgba(255,255,255,0.4)' }}>
+            Loading projects…
+          </div>
+        )}
+        {error && !loading && (
+          <div style={{ textAlign: 'center', padding: '3rem', color: 'rgba(255,100,100,0.6)' }}>
+            Could not load portfolio.
+          </div>
+        )}
+        {!loading && !error && (
+          <div className="pf-grid" key={animKey}>
+            {filtered.map((p, i) => (
+              <ProjectCard key={p._id || p.id} project={p} index={i} />
+            ))}
+            {filtered.length === 0 && (
+              <div style={{ gridColumn: '1/-1', textAlign: 'center', padding: '3rem', color: 'rgba(255,255,255,0.3)' }}>
+                No projects found.
+              </div>
+            )}
+          </div>
+        )}
 
         {/* Bottom CTA */}
         <div className="pf-bottom-cta" data-aos="zoom-in" data-aos-delay="200">

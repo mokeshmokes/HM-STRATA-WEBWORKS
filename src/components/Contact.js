@@ -3,12 +3,10 @@
 import { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  submitFormStart,
-  submitFormSuccess,
+  submitLead,
   resetSubmitStatus,
   setFileName,
-  setFileUploadState,
-  resetFileUpload
+  resetFileUpload,
 } from '@/redux/slices/contactSlice';
 import BackgroundVideo from './BackgroundVideo';
 
@@ -64,16 +62,18 @@ function PhonePickerCard() {
 
 export default function Contact() {
   const dispatch = useDispatch();
-  const { isSubmitting, submitSuccess, fileUploadState, fileName } = useSelector((state) => state.contact);
+  const { isSubmitting, submitSuccess, error: submitError, fileName } = useSelector((state) => state.contact);
   const [focusedField, setFocusedField] = useState(null);
   const [sent, setSent] = useState(false);
   const particlesRef = useRef(null);
+  const fileRef      = useRef(null);  // holds the actual File object
 
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     phone: '',
     service: '',
+    budget: 5000,
     message: ''
   });
 
@@ -102,7 +102,8 @@ export default function Contact() {
   useEffect(() => {
     if (submitSuccess) {
       setSent(true);
-      setFormData({ name: '', email: '', phone: '', service: '', message: '' });
+      setFormData({ name: '', email: '', phone: '', service: '', budget: 5000, message: '' });
+      fileRef.current = null;
       dispatch(resetSubmitStatus());
       dispatch(resetFileUpload());
       setTimeout(() => setSent(false), 5000);
@@ -116,15 +117,14 @@ export default function Contact() {
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
-    if (file) dispatch(setFileName(file.name));
-  };
-
-  const handleUploadStart = () => {
-    dispatch(setFileUploadState('uploading'));
-    setTimeout(() => dispatch(setFileUploadState('completed')), 2000);
+    if (file) {
+      fileRef.current = file;
+      dispatch(setFileName(file.name));
+    }
   };
 
   const handleResetFile = () => {
+    fileRef.current = null;
     dispatch(resetFileUpload());
     const input = document.getElementById('requirement-file');
     if (input) input.value = '';
@@ -132,10 +132,21 @@ export default function Contact() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(submitFormStart());
-    setTimeout(() => {
-      dispatch(submitFormSuccess({ ...formData, requirementFile: fileName || null, timestamp: new Date().toISOString() }));
-    }, 2000);
+    const budgetLabel = formData.budget >= 100000
+      ? '₹1,00,000+'
+      : `₹${Number(formData.budget).toLocaleString('en-IN')}`;
+
+    dispatch(submitLead({
+      name:        formData.name,
+      email:       formData.email,
+      phone:       formData.phone,
+      service:     formData.service,
+      domain:      formData.service,
+      budget:      budgetLabel,
+      description: formData.message,
+      file:        fileRef.current || null,   // actual File object → uploaded to server
+      source:      'website',
+    }));
   };
 
   const services = [
@@ -341,6 +352,42 @@ export default function Contact() {
                   </div>
                 </div>
 
+                {/* Budget range */}
+                <div className="cf-budget-wrap">
+                  <div className="cf-budget-header">
+                    <span className="cf-budget-label">
+                      <i className="fas fa-dollar-sign" /> Budget
+                    </span>
+                    <span className="cf-budget-value">
+                      {formData.budget >= 100000
+                        ? '₹1,00,000+'
+                        : `₹${Number(formData.budget).toLocaleString('en-IN')}`}
+                    </span>
+                  </div>
+
+                  <div className="cf-range-wrap">
+                    <input
+                      type="range"
+                      name="budget"
+                      id="cf-budget"
+                      min={1000}
+                      max={100000}
+                      step={1000}
+                      value={formData.budget}
+                      onChange={handleChange}
+                      className="cf-range"
+                      style={{ '--pct': `${((formData.budget - 1000) / (100000 - 1000)) * 100}%` }}
+                    />
+                    <div className="cf-range-ticks">
+                      <span>₹1K</span>
+                      <span>₹25K</span>
+                      <span>₹50K</span>
+                      <span>₹75K</span>
+                      <span>₹1L+</span>
+                    </div>
+                  </div>
+                </div>
+
                 <div className={`cf-group cf-textarea-group ${focusedField === 'message' || formData.message ? 'active' : ''}`}>
                   <textarea
                     name="message"
@@ -359,39 +406,45 @@ export default function Contact() {
                 {/* File upload */}
                 <div className="cf-file-wrap">
                   <span className="cf-file-label">Requirement Doc <em>(optional)</em></span>
-                  <div className={`cf-file-box state-${fileUploadState}`}>
+                  <div className="cf-file-box">
                     <input
                       type="file"
                       id="requirement-file"
                       onChange={handleFileChange}
                       accept=".pdf,.doc,.docx,.png,.jpg,.jpeg,.zip"
                       style={{ display: 'none' }}
-                      disabled={fileUploadState === 'uploading'}
                     />
-                    <div className="file-upload-view view-idle">
-                      <label htmlFor="requirement-file" className="file-select-trigger">
-                        <i className="fas fa-paperclip" />
-                        <span className={!fileName ? 'placeholder' : ''}>
-                          {fileName || 'Choose file — PDF, DOC, ZIP, PNG'}
-                        </span>
-                      </label>
-                      <button type="button" className="upload-action-btn" onClick={handleUploadStart} disabled={!fileName}>
-                        Upload
-                      </button>
-                    </div>
-                    <div className="file-upload-view view-uploading">
-                      <span>Uploading…</span>
-                      <div className="upload-progress-fill" />
-                    </div>
-                    <div className="file-upload-view view-completed">
-                      <span className="completed-check">✓</span>
-                      <span>Uploaded!</span>
-                      <button type="button" className="btn-clear-attachment" onClick={handleResetFile}>
+                    <label htmlFor="requirement-file" className="file-select-trigger" style={{ flex: 1, cursor: 'pointer' }}>
+                      <i className="fas fa-paperclip" />
+                      <span className={!fileName ? 'placeholder' : ''}>
+                        {fileName || 'Choose file — PDF, DOC, ZIP, PNG'}
+                      </span>
+                    </label>
+                    {fileName && (
+                      <button
+                        type="button"
+                        className="btn-clear-attachment"
+                        onClick={handleResetFile}
+                        title="Remove file"
+                      >
                         <i className="fas fa-times" />
                       </button>
-                    </div>
+                    )}
                   </div>
+                  {fileName && (
+                    <p className="cf-file-hint">
+                      <i className="fas fa-check-circle" style={{ color: '#10b981', marginRight: 4 }} />
+                      File attached — will upload when you send the message
+                    </p>
+                  )}
                 </div>
+
+                {/* API error */}
+                {submitError && (
+                  <p className="cf-submit-error">
+                    <i className="fas fa-exclamation-circle" /> {submitError}
+                  </p>
+                )}
 
                 <button type="submit" className="cf-submit-btn" disabled={isSubmitting}>
                   {isSubmitting ? (
